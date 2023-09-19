@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .calculator {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: black;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        input[type="button"] {
+            width: 45px;
+            height: 45px;
+            border-radius: 50px;
+            font-size: 20px;
+            margin: 5px;
+            cursor: pointer;
+            border: 2px solid #119ba0;
+            transition: border 0.3s ease;
+            background: linear-gradient(45deg, #0b80b2, #78e4ec);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <br><br><br>
+        <input align="center" type="text" id="display" readonly>
+        <br><br>
+                         <!--operators-->
+        <input type="button" value="9" onclick="addToDisplay('9')">
+        <input type="button" value="8" onclick="addToDisplay('8')">
+        <input type="button" value="7" onclick="addToDisplay('7')">
+        <input type="button" value="÷" onclick="addToDisplay('/')">
+        <br>
+        <input type="button" value="6" onclick="addToDisplay('6')">
+        <input type="button" value="5" onclick="addToDisplay('5')">
+        <input type="button" value="4" onclick="addToDisplay('4')">
+        <input type="button" value="x" onclick="addToDisplay('*')">
+        <br>
+        <input type="button" value="3" onclick="addToDisplay('3')">
+        <input type="button" value="2" onclick="addToDisplay('2')">
+        <input type="button" value="1" onclick="addToDisplay('1')">
+        <input type="button" value="-" onclick="addToDisplay('-')">
+        <br>
+        <input type="button" value="C" onclick="clearDisplay()">
+        <input type="button" value="0" onclick="addToDisplay('0')">
+        <input type="button" value="=" onclick="calculate()">
+        <input type="button" value="+" onclick="addToDisplay('+')">
+        
+    </div>
+
+    <script>
+                       // Add event listener. 
+    function addToDisplay(value) {
+        document.getElementById('display').value += value;
+    }
+
+    function clearDisplay() {
+        document.getElementById('display').value = '';
+    }
+
+    function calculate() {
+        const expression = document.getElementById('display').value;
+        let result;
+
+        // Split the expression into operands and operator
+        const operands = expression.split(/[-+*/]/);
+        const operator = expression.match(/[-+*/]/);
+
+        if (operands.length !== 2 || !operator) {
+            document.getElementById('display').value = 'Error';
+            return;
+        }
+
+        const num1 = parseFloat(operands[0]);
+        const num2 = parseFloat(operands[1]);
+
+        if (isNaN(num1) || isNaN(num2)) {
+            document.getElementById('display').value = 'Error';
+            return;
+        }
+                     // operations using if-else statement
+
+            if (operator[0] === '+') {
+            result = num1 + num2;
+        } else if (operator[0] === '-') {
+            result = num1 - num2;
+        } else if (operator[0] === '*') {
+            result = num1 * num2;
+        } else if (operator[0] === '/') {
+            if (num2 === 0) {
+                document.getElementById('display').value = 'Error';
+                return;
+            }
+    result = num1 / num2;
+} else {
+    document.getElementById('display').value = 'Error';
+    return;
+}
+
+        document.getElementById('display').value = result;
+    }
+</script>
+</body>
+</html>
