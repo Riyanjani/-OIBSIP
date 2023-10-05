@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #app {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+        button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #app {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+        button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>To-Do App</h1>
+        <input type="text" id="taskInput" placeholder="Add a new task...">
+        <textarea id="descriptionInput" placeholder="Add a description..."></textarea>
+        <input type="datetime-local" id="dateTimeInput">
+        <button onclick="addTask()">Add Task</button>
+
+        <h2>Pending Tasks</h2>
+        <ul id="pendingTasks"></ul>
+
+        <h2>Completed Tasks</h2>
+        <ul id="completedTasks"></ul>
+    </div>
+
+
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const descriptionInput = document.getElementById('descriptionInput');
+        const dateTimeInput = document.getElementById('dateTimeInput');
+        const pendingTasks = document.getElementById('pendingTasks');
+        const completedTasks = document.getElementById('completedTasks');
+
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            const descriptionText = descriptionInput.value.trim();
+            const dateTimeText = dateTimeInput.value;
+            
+            if (taskText !== '') {
+                const taskItem = document.createElement('li');
+                taskItem.innerHTML = `
+                    <span>${taskText}</span>
+                    <p>${descriptionText}</p>
+                    <p>${dateTimeText}</p>
+                    <button onclick="completeTask(this)">Complete</button>
+                    <button onclick="editTask(this)">Edit</button>
+                    <button onclick="deleteTask(this)">Delete</button>
+                `;
+                pendingTasks.appendChild(taskItem);
+                taskInput.value = '';
+                descriptionInput.value = '';
+                dateTimeInput.value = '';
+            }
+        }
+
+        function completeTask(button) {
+            const taskItem = button.parentElement;
+            taskItem.classList.add('completed');
+            button.textContent = 'Undo';
+            button.onclick = function () {
+                undoTask(this);
+            };
+            completedTasks.appendChild(taskItem);
+        }
+
+        function undoTask(button) {
+            const taskItem = button.parentElement;
+            taskItem.classList.remove('completed');
+            button.textContent = 'Complete';
+            button.onclick = function () {
+                completeTask(this);
+            };
+            pendingTasks.appendChild(taskItem);
+        }
+
+        function editTask(button) {
+            const taskItem = button.parentElement;
+            const taskText = taskItem.querySelector('span').textContent;
+            const newText = prompt('Edit task:', taskText);
+            if (newText !== null) {
+                taskItem.querySelector('span').textContent = newText;
+            }
+        }
+
+        function deleteTask(button) {
+            const taskItem = button.parentElement;
+            taskItem.remove();
+        }
+    </script>
+</body>
+</html>
+
+
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const pendingTasks = document.getElementById('pendingTasks');
+        const completedTasks = document.getElementById('completedTasks');
+
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if (taskText !== '') {
+                const taskItem = document.createElement('li');
+                taskItem.innerHTML = `
+                    <span>${taskText}</span>
+                    <button onclick="completeTask(this)">Complete</button>
+                    <button onclick="editTask(this)">Edit</button>
+                    <button onclick="deleteTask(this)">Delete</button>
+                `;
+                pendingTasks.appendChild(taskItem);
+                taskInput.value = '';
+            }
+        }
+
+        function completeTask(button) {
+            const taskItem = button.parentElement;
+            taskItem.classList.add('completed');
+            button.textContent = 'Undo';
+            button.onclick = function () {
+                undoTask(this);
+            };
+            completedTasks.appendChild(taskItem);
+        }
+
+        function undoTask(button) {
+            const taskItem = button.parentElement;
+            taskItem.classList.remove('completed');
+            button.textContent = 'Complete';
+            button.onclick = function () {
+                completeTask(this);
+            };
+            pendingTasks.appendChild(taskItem);
+        }
+
+        function editTask(button) {
+            const taskItem = button.parentElement;
+            const taskText = taskItem.querySelector('span').textContent;
+            const newText = prompt('Edit task:', taskText);
+            if (newText !== null) {
+                taskItem.querySelector('span').textContent = newText;
+            }
+        }
+
+        function deleteTask(button) {
+            const taskItem = button.parentElement;
+            taskItem.remove();
+        }
+    </script>
+</body>
+</html>
